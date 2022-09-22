@@ -2,7 +2,7 @@ package it.college.congratulations.database;
 
 import java.sql.*;
 
-public class DatabaseHandler extends Configs{
+public class DatabaseHandler extends Configs {
 
     /*public Connection getDbConnection() throws ClassNotFoundException, SQLException {
         String connectionString = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName;
@@ -12,10 +12,12 @@ public class DatabaseHandler extends Configs{
     }*/
 
     private static final DatabaseHandler databaseHandler = new DatabaseHandler();
-    public static DatabaseHandler getDatabaseHandler(){
+
+    public static DatabaseHandler getDatabaseHandler() {
         return databaseHandler;
     }
-    private DatabaseHandler () {
+
+    private DatabaseHandler() {
         String connectionString = "jdbc:postgresql://localhost:5432/congratulations";
         try {
             Class.forName("org.postgresql.Driver");
@@ -28,6 +30,7 @@ public class DatabaseHandler extends Configs{
             throw new RuntimeException(e);
         }
     }
+
     private final Connection dbConnection;
 
     public String authorization(String login, String password) throws SQLException {
@@ -35,7 +38,7 @@ public class DatabaseHandler extends Configs{
         PreparedStatement preparedStatement = dbConnection.prepareStatement(request);
         preparedStatement.setString(1, login);
         ResultSet resultSet = preparedStatement.executeQuery();
-        if (!resultSet.next()){
+        if (!resultSet.next()) {
             return "login not found";
         }
         request = "SELECT * FROM users where login = ? and password = ?";
@@ -45,22 +48,29 @@ public class DatabaseHandler extends Configs{
         resultSet = preparedStatement.executeQuery();
         return resultSet.next() ? resultSet.getString("id") : "incorrect password";
     }
-    public void registration() throws SQLException {
+
+    public boolean registration(String name, String lastname, String secondname, String birthdayDate,
+                             String login, String password, String registrationDate) {
         String request = "INSERT INTO users (id, name, lastname, secondname, birthday_date, registration_date," +
                 "role, login, password) VALUES(?,?,?,?,?,?,?,?,?)";
+        try {
+            PreparedStatement preparedStatement = dbConnection.prepareStatement(request);
+            preparedStatement.setLong(1, getNewId());
+            preparedStatement.setString(2, name);
+            preparedStatement.setString(3, lastname);
+            preparedStatement.setString(4, secondname);
+            preparedStatement.setString(5, birthdayDate);
+            preparedStatement.setString(6, registrationDate);
+            preparedStatement.setBoolean(7, false);
+            preparedStatement.setString(8, login);
+            preparedStatement.setString(9, password);
 
-        PreparedStatement preparedStatement = dbConnection.prepareStatement(request);
-        preparedStatement.setLong(1, getNewId());
-        preparedStatement.setString(2, "Дмитрий");
-        preparedStatement.setString(3, "Рубин");
-        preparedStatement.setString(4, "Андреевич");
-        preparedStatement.setString(5, "17.02.2003");
-        preparedStatement.setString(6, "22.09.2022");
-        preparedStatement.setBoolean(7, false);
-        preparedStatement.setString(8, "Dimyx");
-        preparedStatement.setString(9, "789");
-
-        preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
+            return true;
+        }
+        catch (SQLException e) {
+            return false;
+        }
     }
 
     private long getNewId() throws SQLException {
@@ -75,7 +85,20 @@ public class DatabaseHandler extends Configs{
                     id = thisId;
                 }
             }
-        } catch (Exception ignored){}
+        } catch (Exception ignored) {
+        }
         return ++id;
+    }
+
+    public boolean findByLogin(String login) {
+        String request = "SELECT * FROM users WHERE login = ?";
+        try {
+            PreparedStatement preparedStatement = dbConnection.prepareStatement(request);
+            preparedStatement.setString(1, login);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            return resultSet.next();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

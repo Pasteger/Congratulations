@@ -42,7 +42,4 @@ public class AuthorizationService {
             throw new RuntimeException(e);
         }
     }
-    public void closeSystem(){
-        throw new Error();
-    }
 }

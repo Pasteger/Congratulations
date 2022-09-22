@@ -17,9 +17,9 @@ public class AuthorizationController extends Controller{
     @FXML private Button registrationButton;
 
     @FXML void initialize() {
-        exitButton.setOnAction(actionEvent -> service.closeSystem());
+        exitButton.setOnAction(actionEvent -> openOtherWindow("", exitButton));
         registrationButton.setOnAction(actionEvent -> openOtherWindow(
-                "/it/college/congratulations/layout/calendar.fxml", registrationButton));
+                "/it/college/congratulations/layout/registration.fxml", registrationButton));
         passwordTextField.setOnAction(actionEvent -> service.authorization(
                 loginTextField.getText(), passwordTextField.getText(), errorLabel, fhImage));
     }
