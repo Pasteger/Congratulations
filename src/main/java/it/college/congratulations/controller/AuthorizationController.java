@@ -20,7 +20,12 @@ public class AuthorizationController extends Controller{
         exitButton.setOnAction(actionEvent -> openOtherWindow("", exitButton));
         registrationButton.setOnAction(actionEvent -> openOtherWindow(
                 "/it/college/congratulations/layout/registration.fxml", registrationButton));
-        passwordTextField.setOnAction(actionEvent -> service.authorization(
-                loginTextField.getText(), passwordTextField.getText(), errorLabel, fhImage));
+        passwordTextField.setOnAction(actionEvent -> {
+            boolean response = service.authorization(
+                    loginTextField.getText(), passwordTextField.getText(), errorLabel, fhImage);
+            if (response) {
+                openOtherWindow("/it/college/congratulations/layout/workspace.fxml", passwordTextField);
+            }
+        });
     }
 }

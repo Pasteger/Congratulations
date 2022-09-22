@@ -27,9 +27,18 @@ public class RegistrationService {
 
     public boolean registration(String name, String lastname, String secondname, String birthdayDate,
                              String login, String password, Label errorLabel, ImageView fhImage){
+        Calendar calendar = new GregorianCalendar();
         if (name.equals("") || lastname.equals("") || !birthdayDate.matches("\\d{2}\\.\\d{2}\\.\\d{4}") ||
             login.equals("") || password.equals("")){
             errorLabel.setText("Что-то неправильно введено");
+            fhImage.setImage(fhSurprised);
+            return false;
+        }
+        String[] birthday = birthdayDate.split("\\.");
+        if (Integer.parseInt(birthday[0]) > 31 || Integer.parseInt(birthday[0]) < 1 ||
+                Integer.parseInt(birthday[1]) > 12 || Integer.parseInt(birthday[1]) < 1 ||
+                Integer.parseInt(birthday[2]) > calendar.get(Calendar.YEAR)){
+            errorLabel.setText("Странная дата");
             fhImage.setImage(fhSurprised);
             return false;
         }
@@ -38,7 +47,6 @@ public class RegistrationService {
             fhImage.setImage(fhUpset);
             return false;
         }
-        Calendar calendar = new GregorianCalendar();
         int month = calendar.get(Calendar.MONTH) + 1;
         String registrationDate =
                 calendar.get(Calendar.DAY_OF_MONTH) +

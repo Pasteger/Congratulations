@@ -20,26 +20,29 @@ public class AuthorizationService {
     public static AuthorizationService getAuthorizationService(){return  authorizationService;}
 
     private final DatabaseHandler databaseHandler = DatabaseHandler.getDatabaseHandler();
+    private final WorkspaceService workspaceService = WorkspaceService.getWorkspaceService();
     private final Image fhSurprised;
     private final Image fhUpset;
     private final Image fhHappy;
-    public void authorization(String login, String password, Label errorLabel, ImageView fh){
+    public boolean authorization(String login, String password, Label errorLabel, ImageView fh){
         try {
             String result = databaseHandler.authorization(login, password);
             if (result.equals("login not found")){
                 errorLabel.setText("Пользователь с таким логином не найден");
                 fh.setImage(fhSurprised);
-                return;
+                return false;
             }
             if (result.equals("incorrect password")){
                 errorLabel.setText("О нет! Неверный пароль!");
                 fh.setImage(fhUpset);
-                return;
+                return false;
             }
             errorLabel.setText("Успешно!");
             fh.setImage(fhHappy);
+            workspaceService.setUser(databaseHandler.findUserById(Long.parseLong(result)));
+            return true;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            return false;
         }
     }
 }

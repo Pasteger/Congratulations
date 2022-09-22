@@ -41,12 +41,33 @@ public class DatabaseHandler extends Configs {
         if (!resultSet.next()) {
             return "login not found";
         }
-        request = "SELECT * FROM users where login = ? and password = ?";
-        preparedStatement = dbConnection.prepareStatement(request);
+        String request2 = "SELECT * FROM users where login = ? and password = ?";
+        preparedStatement = dbConnection.prepareStatement(request2);
         preparedStatement.setString(1, login);
         preparedStatement.setString(2, password);
         resultSet = preparedStatement.executeQuery();
         return resultSet.next() ? resultSet.getString("id") : "incorrect password";
+    }
+
+    public User findUserById(Long id){
+        try {
+            String request = "SELECT * FROM users where id = ?";
+            PreparedStatement preparedStatement = dbConnection.prepareStatement(request);
+            preparedStatement.setLong(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            User user = new User();
+            user.setId(id);
+            user.setName(resultSet.getString("name"));
+            user.setLastname(resultSet.getString("lastname"));
+            user.setSecondname(resultSet.getString("secondname"));
+            user.setBirthdayDate(resultSet.getString("birthday_date"));
+            user.setRegistrationDate(resultSet.getString("registration_date"));
+            user.setRole(resultSet.getBoolean("role"));
+            return user;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public boolean registration(String name, String lastname, String secondname, String birthdayDate,
