@@ -7,10 +7,10 @@ import java.util.List;
 
 public class CalendarService {
     private final Calendar calendar = new GregorianCalendar();
-    private final int currentYear = calendar.get(Calendar.YEAR);
-    private final int currentMonth = calendar.get(Calendar.MONTH);
-    private int selectedYear = currentYear;
-    private int selectedMonth = currentMonth;
+    private final int todayYear = calendar.get(Calendar.YEAR);
+    private final int todayMonth = calendar.get(Calendar.MONTH);
+    private int selectedYear = todayYear;
+    private int selectedMonth = todayMonth;
     private static final CalendarService calendarService = new CalendarService();
     private CalendarService() {}
     public static CalendarService getCalendarService() {
@@ -18,7 +18,7 @@ public class CalendarService {
     }
     public void getMount(List<Label> labelList, String command, Label yearLabel, Label monthLabel){
         switch (command){
-            case "CURRENT" -> setMount(labelList, yearLabel, monthLabel, currentYear, currentMonth);
+            case "CURRENT" -> setMount(labelList, yearLabel, monthLabel, todayYear, todayMonth);
             case "PREVIOUS_MONTH" -> setMount(labelList, yearLabel, monthLabel, selectedYear, --selectedMonth);
             case "PREVIOUS_YEAR" -> setMount(labelList, yearLabel, monthLabel, --selectedYear, selectedMonth);
             case "NEXT_MONTH" -> setMount(labelList, yearLabel, monthLabel, selectedYear, ++selectedMonth);

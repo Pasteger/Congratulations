@@ -2,12 +2,11 @@ package it.college.congratulations.controller;
 
 import it.college.congratulations.service.CalendarService;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class CalendarController {
@@ -57,6 +56,8 @@ public class CalendarController {
     @FXML private ImageView previousMonthButton;
     @FXML private ImageView previousYearButton;
 
+    @FXML private Button todayButton;
+
     @FXML private Label yearLabel;
     @FXML private Label monthLabel;
     private final List<Label> labelList = new ArrayList<>();
@@ -78,6 +79,8 @@ public class CalendarController {
             service.getMount(labelList, findDateTextField.getText(), yearLabel, monthLabel);
             findDateTextField.clear();
         });
+
+        todayButton.setOnAction(actionEvent -> service.getMount(labelList, "CURRENT", yearLabel, monthLabel));
     }
 
     private void addLabelsToList(){

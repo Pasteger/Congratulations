@@ -10,6 +10,9 @@ module it.college.congratulations {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires java.sql;
+    requires mysql.connector.java;
+    requires org.postgresql.jdbc;
 
     opens it.college.congratulations to javafx.fxml;
     exports it.college.congratulations;
