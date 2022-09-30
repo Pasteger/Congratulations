@@ -16,7 +16,7 @@ public class WorkspaceController extends Controller{
 
 
     @FXML void initialize(){
-        titleLabel.setText(service.getTextForTitle(backgroundImageView));
+        service.setCongratulation(backgroundImageView, titleLabel);
         exitButton.setOnAction(actionEvent -> {
             service.resetUser();
             openOtherWindow("/it/college/congratulations/layout/authorization.fxml", exitButton);

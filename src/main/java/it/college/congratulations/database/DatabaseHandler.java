@@ -3,8 +3,9 @@ package it.college.congratulations.database;
 import it.college.congratulations.database.entity.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DatabaseHandler extends Configs {
 
@@ -150,5 +151,21 @@ public class DatabaseHandler extends Configs {
             throw new RuntimeException(e);
         }
         return users;
+    }
+
+    public List<String> getCongratulation(String date){
+        List<String> congratulation = new ArrayList<>();
+        String request = "SELECT * FROM congratulations WHERE congratulations.date = ?";
+        try {
+            PreparedStatement preparedStatement = dbConnection.prepareStatement(request);
+            preparedStatement.setString(1, date);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            congratulation.add(resultSet.getString("image"));
+            congratulation.add(resultSet.getString("message"));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return congratulation;
     }
 }

@@ -11,7 +11,6 @@ import javafx.scene.image.ImageView;
 
 public class AdministratorOfficeController extends Controller{
     AdministratorOfficeService service = AdministratorOfficeService.getAdministratorOfficeService();
-    @FXML private ImageView backgroundImageView;
     @FXML private TableColumn<User, String> birthdayDateTC;
     @FXML private ImageView calendarButton;
     @FXML private Button exitButton;

@@ -11,7 +11,6 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" style="-fx-background-color: #535353;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.college.congratulations.controller.AdministratorOfficeController">
    <children>
-      <ImageView fx:id="backgroundImageView" fitHeight="480.0" fitWidth="640.0" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="exitButton" alignment="BOTTOM_LEFT" layoutX="287.0" layoutY="446.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="67.0" style="-fx-background-color: #535353; -fx-border-color: #535353;" text="выйти" textFill="#b200ff">
          <font>
             <Font name="Segoe Print" size="13.0" />
