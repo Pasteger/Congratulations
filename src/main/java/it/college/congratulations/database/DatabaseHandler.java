@@ -1,5 +1,9 @@
 package it.college.congratulations.database;
 
+import it.college.congratulations.database.entity.User;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.sql.*;
 
 public class DatabaseHandler extends Configs {
@@ -121,5 +125,30 @@ public class DatabaseHandler extends Configs {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public ObservableList<User> getUsers(){
+        ObservableList<User> users = FXCollections.observableArrayList();
+        String request = "SELECT * FROM users";
+        try {
+            PreparedStatement statement = dbConnection.prepareStatement(request);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                User user = new User();
+                user.setId(resultSet.getLong("id"));
+                user.setName(resultSet.getString("name"));
+                user.setLastname(resultSet.getString("lastname"));
+                user.setSecondname(resultSet.getString("secondname"));
+                user.setBirthdayDate(resultSet.getString("birthday_date"));
+                user.setRegistrationDate(resultSet.getString("registration_date"));
+                user.setRole(resultSet.getBoolean("role"));
+                user.setLogin(resultSet.getString("login"));
+                user.setPassword(resultSet.getString("password"));
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return users;
     }
 }

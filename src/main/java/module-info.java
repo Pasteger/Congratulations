@@ -18,4 +18,6 @@ module it.college.congratulations {
     exports it.college.congratulations;
     exports it.college.congratulations.controller;
     opens it.college.congratulations.controller to javafx.fxml;
+    exports it.college.congratulations.database.entity;
+    opens it.college.congratulations.database.entity to javafx.fxml;
 }

@@ -1,6 +1,6 @@
 package it.college.congratulations.service;
 
-import it.college.congratulations.database.User;
+import it.college.congratulations.database.entity.User;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import java.io.File;

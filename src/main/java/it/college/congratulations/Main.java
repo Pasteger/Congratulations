@@ -1,22 +1,24 @@
 package it.college.congratulations;
 
+import it.college.congratulations.controller.Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Main extends Application {
     @Override
-    public void start(Stage stage) throws IOException {
-        /*FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("layout/calendar.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 654, 622);*/
+    public void start(Stage stage) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("layout/authorization.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 640, 480);
-        stage.setTitle("");
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
+        try {
+            fxmlLoader.load();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+        Controller.setStage(fxmlLoader);
     }
 
     public static void main(String[] args) {

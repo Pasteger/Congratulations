@@ -10,8 +10,10 @@ public class WorkspaceController extends Controller{
     WorkspaceService service = WorkspaceService.getWorkspaceService();
     @FXML private ImageView backgroundImageView;
     @FXML private Button exitButton;
+    @FXML private Button administratorButton;
     @FXML private ImageView fhImage;
     @FXML private Label titleLabel;
+
 
     @FXML void initialize(){
         titleLabel.setText(service.getTextForTitle(backgroundImageView));
@@ -20,5 +22,8 @@ public class WorkspaceController extends Controller{
             openOtherWindow("/it/college/congratulations/layout/authorization.fxml", exitButton);
         });
         fhImage.setOnMouseClicked(mouseEvent -> service.moveFH(fhImage));
+        administratorButton.setVisible(service.getUser().getRole());
+        administratorButton.setOnAction(actionEvent -> openOtherWindow(
+                "/it/college/congratulations/layout/administrator_office.fxml", administratorButton));
     }
 }

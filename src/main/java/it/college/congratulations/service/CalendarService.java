@@ -6,16 +6,16 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 public class CalendarService {
-    private final Calendar calendar = new GregorianCalendar();
-    private final int todayYear = calendar.get(Calendar.YEAR);
-    private final int todayMonth = calendar.get(Calendar.MONTH);
-    private int selectedYear = todayYear;
-    private int selectedMonth = todayMonth;
     private static final CalendarService calendarService = new CalendarService();
     private CalendarService() {}
     public static CalendarService getCalendarService() {
         return calendarService;
     }
+    private final Calendar calendar = new GregorianCalendar();
+    private final int todayYear = calendar.get(Calendar.YEAR);
+    private final int todayMonth = calendar.get(Calendar.MONTH);
+    private int selectedYear = todayYear;
+    private int selectedMonth = todayMonth;
     public void getMount(List<Label> labelList, String command, Label yearLabel, Label monthLabel){
         switch (command){
             case "CURRENT" -> setMount(labelList, yearLabel, monthLabel, todayYear, todayMonth);

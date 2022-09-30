@@ -1,4 +1,4 @@
-package it.college.congratulations.database;
+package it.college.congratulations.database.entity;
 
 public class User {
     private Long id;
@@ -8,6 +8,8 @@ public class User {
     private String birthdayDate;
     private String registrationDate;
     private Boolean role;
+    private String login;
+    private String password;
 
     public String getName() {
         return name;
@@ -63,5 +65,21 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" style="-fx-background-color: #535353;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.college.congratulations.controller.AdministratorOfficeController">
+   <children>
+      <ImageView fx:id="backgroundImageView" fitHeight="480.0" fitWidth="640.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="exitButton" alignment="BOTTOM_LEFT" layoutX="287.0" layoutY="446.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="67.0" style="-fx-background-color: #535353; -fx-border-color: #535353;" text="выйти" textFill="#b200ff">
+         <font>
+            <Font name="Segoe Print" size="13.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="141.0" fitWidth="157.0" layoutX="485.0" layoutY="322.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/decoration.gif" />
+         </image>
+      </ImageView>
+      <TableView fx:id="usersTable" layoutY="30.0" prefHeight="225.0" prefWidth="640.0" style="-fx-background-color: #535353;">
+        <columns>
+          <TableColumn fx:id="idTC" prefWidth="24.0" style="-fx-background-color: #0715cd; -fx-border-color: #b200ff;" text="ID" />
+            <TableColumn fx:id="nameTC" prefWidth="62.0" style="-fx-background-color: #0715cd; -fx-border-color: #b200ff;" text="Имя" />
+            <TableColumn fx:id="lastnameTC" prefWidth="82.0" style="-fx-background-color: #0715cd; -fx-border-color: #b200ff;" text="Фамилия" />
+            <TableColumn fx:id="secondnameTC" prefWidth="89.0" style="-fx-background-color: #0715cd; -fx-border-color: #b200ff;" text="Отчество" />
+            <TableColumn fx:id="birthdayDateTC" prefWidth="99.0" style="-fx-background-color: #0715cd; -fx-border-color: #b200ff;" text="Дата рождения" />
+            <TableColumn fx:id="registrationDateTC" prefWidth="113.0" style="-fx-background-color: #0715cd; -fx-border-color: #b200ff;" text="Дата регистрации" />
+            <TableColumn fx:id="roleTC" prefWidth="36.0" style="-fx-background-color: #0715cd; -fx-border-color: #b200ff;" text="Роль" />
+            <TableColumn fx:id="loginTC" prefWidth="65.0" style="-fx-background-color: #0715cd; -fx-border-color: #b200ff;" text="Логин" />
+            <TableColumn fx:id="passwordTC" prefWidth="68.0" style="-fx-background-color: #0715cd; -fx-border-color: #b200ff;" text="Пароль" />
+        </columns>
+      </TableView>
+      <Label alignment="CENTER" layoutX="1.0" prefHeight="30.0" prefWidth="638.0" style="-fx-border-color: #b200ff; -fx-background-color: #0715cd;" text="пользователи" textAlignment="CENTER" textFill="#393939">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="141.0" fitWidth="141.0" layoutX="14.0" layoutY="326.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/fh/normal.gif" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="calendarButton" fitHeight="184.0" fitWidth="252.0" layoutX="211.0" layoutY="255.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/calendar.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

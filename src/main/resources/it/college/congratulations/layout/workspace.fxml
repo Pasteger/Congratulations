@@ -25,5 +25,10 @@
             <Font name="Segoe Print" size="13.0" />
          </font>
       </Button>
+      <Button fx:id="administratorButton" alignment="BOTTOM_LEFT" layoutX="491.0" layoutY="432.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="135.0" style="-fx-background-color: #535353; -fx-border-color: #535353;" text="кабинет админа" textFill="#b200ff" visible="false">
+         <font>
+            <Font name="Segoe Print" size="13.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
