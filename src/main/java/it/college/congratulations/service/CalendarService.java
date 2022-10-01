@@ -1,21 +1,28 @@
 package it.college.congratulations.service;
 
+import it.college.congratulations.database.DatabaseHandler;
+import it.college.congratulations.database.entity.Congratulation;
 import javafx.scene.control.Label;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Optional;
 
 public class CalendarService {
     private static final CalendarService calendarService = new CalendarService();
-    private CalendarService() {}
+    private CalendarService() {
+        updateCongratulations();
+    }
     public static CalendarService getCalendarService() {
         return calendarService;
     }
+    private final DatabaseHandler databaseHandler = DatabaseHandler.getDatabaseHandler();
     private final Calendar calendar = new GregorianCalendar();
     private final int todayYear = calendar.get(Calendar.YEAR);
     private final int todayMonth = calendar.get(Calendar.MONTH);
     private int selectedYear = todayYear;
     private int selectedMonth = todayMonth;
+    private List<Congratulation> congratulations;
     public void getMount(List<Label> labelList, String command, Label yearLabel, Label monthLabel){
         switch (command){
             case "CURRENT" -> setMount(labelList, yearLabel, monthLabel, todayYear, todayMonth);
@@ -31,6 +38,7 @@ public class CalendarService {
     }
 
     private void setMount(List<Label> labelList, Label yearLabel, Label monthLabel, int year, int mount){
+        labelList.forEach(label -> label.setStyle("-fx-background-color: #c6c6c6"));
         if (mount > Calendar.DECEMBER) {
             mount = Calendar.JANUARY;
         }
@@ -57,7 +65,15 @@ public class CalendarService {
         labelList.forEach(label -> label.setText(""));
         for (int day = 0; day < daysOfMouth; day++){
             Label label = labelList.get(day + coefficientOfDayOfWeek);
-            label.setText(String.valueOf(day + 1));
+            int dayDate = day + 1;
+            String dayDateString = dayDate > 9 ? "" + dayDate : "0" + dayDate;
+            String monthString = (selectedMonth + 1) > 9 ? "" + (selectedMonth + 1) : "0" + (selectedMonth + 1);
+            Optional<Congratulation> congratulationOptional = congratulations.stream().filter(congratulation ->
+                    congratulation.getDate().equals(dayDateString + "." + monthString)).findFirst();
+            if (congratulationOptional.isPresent()){
+                label.setStyle("-fx-background-color: #ff6347");
+            }
+            label.setText(String.valueOf(dayDate));
         }
     }
     private void setYearAndMonthLabel(Label yearLabel, Label monthLabel){
@@ -78,5 +94,9 @@ public class CalendarService {
             case Calendar.DECEMBER -> month = "Декабрь";
         }
         monthLabel.setText(month);
+    }
+
+    private void updateCongratulations(){
+        congratulations = databaseHandler.getCongratulations();
     }
 }

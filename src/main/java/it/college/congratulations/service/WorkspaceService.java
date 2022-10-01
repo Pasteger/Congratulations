@@ -1,6 +1,7 @@
 package it.college.congratulations.service;
 
 import it.college.congratulations.database.DatabaseHandler;
+import it.college.congratulations.database.entity.Congratulation;
 import it.college.congratulations.database.entity.User;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -73,13 +74,13 @@ public class WorkspaceService {
 
     private void unpackingCongratulation(ImageView background, Label title, String date, int year){
         try {
-            List<String> congratulation = databaseHandler.getCongratulation(date);
-            String message = congratulation.get(1);
+            Congratulation congratulation = databaseHandler.getCongratulation(date);
+            String message = congratulation.getMessage();
             message = message.replace("user", user.getName());
             message = message.replace("year", String.valueOf(year));
             title.setText(message);
 
-            String imagePath = congratulationImagesPath + congratulation.get(0);
+            String imagePath = congratulationImagesPath + congratulation.getImage();
             Image image = new Image(new File(imagePath).toURI().toString());
             background.setImage(image);
         }

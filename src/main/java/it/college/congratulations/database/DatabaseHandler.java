@@ -1,5 +1,6 @@
 package it.college.congratulations.database;
 
+import it.college.congratulations.database.entity.Congratulation;
 import it.college.congratulations.database.entity.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -153,19 +154,37 @@ public class DatabaseHandler extends Configs {
         return users;
     }
 
-    public List<String> getCongratulation(String date){
-        List<String> congratulation = new ArrayList<>();
+    public Congratulation getCongratulation(String date){
+        Congratulation congratulation = new Congratulation();
         String request = "SELECT * FROM congratulations WHERE congratulations.date = ?";
         try {
             PreparedStatement preparedStatement = dbConnection.prepareStatement(request);
             preparedStatement.setString(1, date);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
-            congratulation.add(resultSet.getString("image"));
-            congratulation.add(resultSet.getString("message"));
+            congratulation.setImage(resultSet.getString("image"));
+            congratulation.setMessage(resultSet.getString("message"));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return congratulation;
+    }
+    public List<Congratulation> getCongratulations(){
+        List<Congratulation> congratulations = new ArrayList<>();
+        String request = "SELECT * FROM congratulations";
+        try {
+            PreparedStatement preparedStatement = dbConnection.prepareStatement(request);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Congratulation congratulation = new Congratulation();
+                congratulation.setDate(resultSet.getString("date"));
+                congratulation.setImage(resultSet.getString("image"));
+                congratulation.setMessage(resultSet.getString("message"));
+                congratulations.add(congratulation);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return congratulations;
     }
 }
