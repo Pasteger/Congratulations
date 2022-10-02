@@ -63,23 +63,6 @@ public class WorkspaceService {
         }
     }
 
-    private void unpackingCongratulation(ImageView background, Label title, String date, int year){
-        try {
-            Congratulation congratulation = databaseHandler.getCongratulation(date);
-            String message = congratulation.getMessage();
-            message = message.replace("user", user.getName());
-            message = message.replace("year", String.valueOf(year));
-            title.setText(message);
-
-            String imagePath = congratulationImagesPath + congratulation.getImage();
-            Image image = new Image(new File(imagePath).toURI().toString());
-            background.setImage(image);
-        }
-        catch (Exception exception){
-            title.setText("Приступим к работе " + user.getName());
-        }
-    }
-
     public void moveFH(ImageView fhImage){
         int x = 200 - random.nextInt(400);
         int y = 100 - random.nextInt(200);
@@ -103,5 +86,22 @@ public class WorkspaceService {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    private void unpackingCongratulation(ImageView background, Label title, String date, int year){
+        try {
+            Congratulation congratulation = databaseHandler.getCongratulation(date);
+            String message = congratulation.getMessage();
+            message = message.replace("user", user.getName());
+            message = message.replace("year", String.valueOf(year));
+            title.setText(message);
+
+            String imagePath = congratulationImagesPath + congratulation.getImage();
+            Image image = new Image(new File(imagePath).toURI().toString());
+            background.setImage(image);
+        }
+        catch (Exception exception){
+            title.setText("Приступим к работе " + user.getName());
+        }
     }
 }

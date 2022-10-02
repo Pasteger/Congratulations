@@ -22,6 +22,7 @@ public class CalendarService {
     private int selectedYear = todayYear;
     private int selectedMonth = todayMonth;
     private List<Congratulation> congratulations;
+
     public void getMount(List<Label> labelList, String command, Label yearLabel, Label monthLabel){
         updateCongratulations();
         switch (command){

@@ -16,6 +16,8 @@ public class UpdateHolidayWindowController {
 
     @FXML void initialize(){
         dateTextField.setText(service.getDate());
+        imageTextField.setText(service.getImage());
+        messageTextField.setText(service.getMessage());
         fhImage.setOnMouseClicked(mouseEvent -> service.setCongratulation(
                 imageTextField.getText(), messageTextField.getText(), fhImage, errorLabel));
     }

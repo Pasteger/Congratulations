@@ -14,7 +14,6 @@ public class WorkspaceController extends Controller{
     @FXML private ImageView fhImage;
     @FXML private Label titleLabel;
 
-
     @FXML void initialize(){
         service.setCongratulation(backgroundImageView, titleLabel);
         exitButton.setOnAction(actionEvent -> {

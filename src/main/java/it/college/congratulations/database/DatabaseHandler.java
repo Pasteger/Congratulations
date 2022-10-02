@@ -95,23 +95,6 @@ public class DatabaseHandler {
         }
     }
 
-    private long getNewId() throws SQLException {
-        String request = "SELECT * FROM users";
-        PreparedStatement preparedStatement = dbConnection.prepareStatement(request);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        long id = 0;
-        try {
-            while (resultSet.next()) {
-                long thisId = Long.parseLong(resultSet.getString("id"));
-                if (id < thisId) {
-                    id = thisId;
-                }
-            }
-        } catch (Exception ignored) {
-        }
-        return ++id;
-    }
-
     public boolean findByLogin(String login) {
         String request = "SELECT * FROM users WHERE login = ?";
         try {
@@ -140,19 +123,16 @@ public class DatabaseHandler {
         return users;
     }
 
-    public Congratulation getCongratulation(String date){
+    public Congratulation getCongratulation(String date) throws SQLException {
         Congratulation congratulation = new Congratulation();
         String request = "SELECT * FROM congratulations WHERE congratulations.date = ?";
-        try {
-            PreparedStatement preparedStatement = dbConnection.prepareStatement(request);
-            preparedStatement.setString(1, date);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            congratulation.setImage(resultSet.getString("image"));
-            congratulation.setMessage(resultSet.getString("message"));
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        PreparedStatement preparedStatement = dbConnection.prepareStatement(request);
+        preparedStatement.setString(1, date);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        resultSet.next();
+        congratulation.setDate(resultSet.getString("date"));
+        congratulation.setImage(resultSet.getString("image"));
+        congratulation.setMessage(resultSet.getString("message"));
         return congratulation;
     }
     public List<Congratulation> getCongratulations(){
@@ -174,18 +154,6 @@ public class DatabaseHandler {
         return congratulations;
     }
 
-    public boolean checkingUseOfDate(String date){
-        String request = "SELECT * FROM congratulations WHERE date = ?";
-        try {
-            PreparedStatement preparedStatement = dbConnection.prepareStatement(request);
-            preparedStatement.setString(1, date);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            return resultSet.next();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     public boolean saveCongratulation(Congratulation congratulation) {
         String request = "INSERT INTO congratulations (date, image, message) VALUES(?,?,?)";
         try {
@@ -193,6 +161,34 @@ public class DatabaseHandler {
             preparedStatement.setString(1, congratulation.getDate());
             preparedStatement.setString(2, congratulation.getImage());
             preparedStatement.setString(3, congratulation.getMessage());
+            preparedStatement.executeUpdate();
+            return true;
+        }
+        catch (SQLException e) {
+            return false;
+        }
+    }
+
+    public boolean updateCongratulation(Congratulation congratulation){
+        String request = "UPDATE congratulations SET image = ?, message = ? WHERE date = ?";
+        try {
+            PreparedStatement preparedStatement = dbConnection.prepareStatement(request);
+            preparedStatement.setString(1, congratulation.getImage());
+            preparedStatement.setString(2, congratulation.getMessage());
+            preparedStatement.setString(3, congratulation.getDate());
+            preparedStatement.executeUpdate();
+            return true;
+        }
+        catch (SQLException e) {
+            return false;
+        }
+    }
+
+    public boolean deleteCongratulation(Congratulation congratulation){
+        String request = "DELETE FROM congratulations where date = ?";
+        try {
+            PreparedStatement preparedStatement = dbConnection.prepareStatement(request);
+            preparedStatement.setString(1, congratulation.getDate());
             preparedStatement.executeUpdate();
             return true;
         }
@@ -213,5 +209,22 @@ public class DatabaseHandler {
         user.setLogin(resultSet.getString("login"));
         user.setPassword(resultSet.getString("password"));
         return user;
+    }
+
+    private long getNewId() throws SQLException {
+        String request = "SELECT * FROM users";
+        PreparedStatement preparedStatement = dbConnection.prepareStatement(request);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        long id = 0;
+        try {
+            while (resultSet.next()) {
+                long thisId = Long.parseLong(resultSet.getString("id"));
+                if (id < thisId) {
+                    id = thisId;
+                }
+            }
+        } catch (Exception ignored) {
+        }
+        return ++id;
     }
 }
