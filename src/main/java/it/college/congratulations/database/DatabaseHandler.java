@@ -8,18 +8,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DatabaseHandler extends Configs {
-
-    /*public Connection getDbConnection() throws ClassNotFoundException, SQLException {
-        String connectionString = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName;
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        dbConnection = DriverManager.getConnection(connectionString, dbUser, dbPass);
-        return dbConnection;
-    }*/
-
+public class DatabaseHandler {
     private static final DatabaseHandler databaseHandler = new DatabaseHandler();
 
-    public static DatabaseHandler getDatabaseHandler() {
+    public static DatabaseHandler getInstance() {
         return databaseHandler;
     }
 
@@ -35,6 +27,17 @@ public class DatabaseHandler extends Configs {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        /*public Connection getDbConnection() throws ClassNotFoundException, SQLException {
+        String connectionString = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName;
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        dbConnection = DriverManager.getConnection(connectionString, dbUser, dbPass);
+        return dbConnection;
+        protected String dbHost = "localhost";
+        protected String dbPort = "3306";
+        protected String dbUser = "root";
+        protected String dbPass = "root";
+        protected String dbName = "chef";
+        }*/
     }
 
     private final Connection dbConnection;
@@ -62,15 +65,7 @@ public class DatabaseHandler extends Configs {
             preparedStatement.setLong(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
-            User user = new User();
-            user.setId(id);
-            user.setName(resultSet.getString("name"));
-            user.setLastname(resultSet.getString("lastname"));
-            user.setSecondname(resultSet.getString("secondname"));
-            user.setBirthdayDate(resultSet.getString("birthday_date"));
-            user.setRegistrationDate(resultSet.getString("registration_date"));
-            user.setRole(resultSet.getBoolean("role"));
-            return user;
+            return convertResultSetToUser(resultSet);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -136,16 +131,7 @@ public class DatabaseHandler extends Configs {
             PreparedStatement statement = dbConnection.prepareStatement(request);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()){
-                User user = new User();
-                user.setId(resultSet.getLong("id"));
-                user.setName(resultSet.getString("name"));
-                user.setLastname(resultSet.getString("lastname"));
-                user.setSecondname(resultSet.getString("secondname"));
-                user.setBirthdayDate(resultSet.getString("birthday_date"));
-                user.setRegistrationDate(resultSet.getString("registration_date"));
-                user.setRole(resultSet.getBoolean("role"));
-                user.setLogin(resultSet.getString("login"));
-                user.setPassword(resultSet.getString("password"));
+                User user = convertResultSetToUser(resultSet);
                 users.add(user);
             }
         } catch (SQLException e) {
@@ -186,5 +172,46 @@ public class DatabaseHandler extends Configs {
             throw new RuntimeException(e);
         }
         return congratulations;
+    }
+
+    public boolean checkingUseOfDate(String date){
+        String request = "SELECT * FROM congratulations WHERE date = ?";
+        try {
+            PreparedStatement preparedStatement = dbConnection.prepareStatement(request);
+            preparedStatement.setString(1, date);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            return resultSet.next();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean saveCongratulation(Congratulation congratulation) {
+        String request = "INSERT INTO congratulations (date, image, message) VALUES(?,?,?)";
+        try {
+            PreparedStatement preparedStatement = dbConnection.prepareStatement(request);
+            preparedStatement.setString(1, congratulation.getDate());
+            preparedStatement.setString(2, congratulation.getImage());
+            preparedStatement.setString(3, congratulation.getMessage());
+            preparedStatement.executeUpdate();
+            return true;
+        }
+        catch (SQLException e) {
+            return false;
+        }
+    }
+
+    private User convertResultSetToUser(ResultSet resultSet) throws SQLException {
+        User user = new User();
+        user.setId(resultSet.getLong("id"));
+        user.setName(resultSet.getString("name"));
+        user.setLastname(resultSet.getString("lastname"));
+        user.setSecondname(resultSet.getString("secondname"));
+        user.setBirthdayDate(resultSet.getString("birthday_date"));
+        user.setRegistrationDate(resultSet.getString("registration_date"));
+        user.setRole(resultSet.getBoolean("role"));
+        user.setLogin(resultSet.getString("login"));
+        user.setPassword(resultSet.getString("password"));
+        return user;
     }
 }

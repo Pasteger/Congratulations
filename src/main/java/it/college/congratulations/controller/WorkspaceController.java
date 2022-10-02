@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 
 public class WorkspaceController extends Controller{
-    WorkspaceService service = WorkspaceService.getWorkspaceService();
+    WorkspaceService service = WorkspaceService.getInstance();
     @FXML private ImageView backgroundImageView;
     @FXML private Button exitButton;
     @FXML private Button administratorButton;

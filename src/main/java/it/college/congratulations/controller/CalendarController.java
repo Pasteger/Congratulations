@@ -9,8 +9,8 @@ import javafx.scene.image.ImageView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CalendarController {
-    CalendarService service = CalendarService.getCalendarService();
+public class CalendarController extends Controller{
+    CalendarService service = CalendarService.getInstance();
     @FXML private Label label0;
     @FXML private Label label1;
     @FXML private Label label2;
@@ -81,6 +81,16 @@ public class CalendarController {
         });
 
         todayButton.setOnAction(actionEvent -> service.getMount(labelList, "CURRENT", yearLabel, monthLabel));
+
+        labelList.forEach(
+                label -> label.setOnMouseClicked(
+                mouseEvent -> {
+                    String day = label.getText();
+                    if (!day.equals("")) {
+                        service.getUpdateHolidayWindow(day);
+                        openNewWindow("/it/college/congratulations/layout/update_holiday_window.fxml");
+                    }
+                }));
     }
 
     private void addLabelsToList(){

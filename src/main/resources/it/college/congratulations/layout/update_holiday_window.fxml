@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="394.0"
+            prefWidth="335.0" style="-fx-background-color: #535353;" xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="it.college.congratulations.controller.UpdateHolidayWindowController">
+   <TextField fx:id="imageTextField" alignment="CENTER" focusTraversable="false" layoutX="40.0" layoutY="117.0"
+              prefHeight="15.0" prefWidth="255.0" promptText="Картинка"
+              style="-fx-background-color: #8400b9; -fx-border-color: #8400b9;">
+      <font>
+         <Font size="18.0"/>
+      </font>
+   </TextField>
+   <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="14.0" prefWidth="308.0" text="Установить дату"
+          textAlignment="CENTER" textFill="#c700ff">
+      <font>
+         <Font name="Segoe Print Bold" size="28.0"/>
+      </font>
+   </Label>
+   <TextField fx:id="dateTextField" alignment="CENTER" disable="true" focusTraversable="false" layoutX="40.0"
+              layoutY="64.0" prefHeight="15.0" prefWidth="255.0" promptText="Дата"
+              style="-fx-background-color: #8400b9; -fx-border-color: #8400b9;">
+      <font>
+         <Font size="18.0"/>
+      </font>
+   </TextField>
+   <Label fx:id="errorLabel" alignment="CENTER" layoutX="11.0" layoutY="340.0" prefHeight="46.0" prefWidth="315.0"
+          textAlignment="CENTER" textFill="#b200ff">
+      <font>
+         <Font name="Segoe Print" size="25.0"/>
+      </font>
+   </Label>
+   <ImageView fx:id="fhImage" fitHeight="117.0" fitWidth="153.0" layoutX="109.0" layoutY="223.0" pickOnBounds="true"
+              preserveRatio="true">
+      <Image url="@../image/fh/normal.gif"/>
+   </ImageView>
+   <TextField fx:id="messageTextField" alignment="CENTER" focusTraversable="false" layoutX="40.0" layoutY="171.0"
+              prefHeight="15.0" prefWidth="255.0" promptText="Поздравление"
+              style="-fx-background-color: #8400b9; -fx-border-color: #8400b9;">
+      <font>
+         <Font size="18.0"/>
+      </font>
+   </TextField>
+</AnchorPane>

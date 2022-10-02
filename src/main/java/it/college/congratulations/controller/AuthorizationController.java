@@ -8,7 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 
 public class AuthorizationController extends Controller{
-    AuthorizationService service = AuthorizationService.getAuthorizationService();
+    AuthorizationService service = AuthorizationService.getInstance();
     @FXML private Label errorLabel;
     @FXML private Button exitButton;
     @FXML private ImageView fhImage;

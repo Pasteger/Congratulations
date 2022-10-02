@@ -8,7 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 
 public class RegistrationController extends Controller {
-    RegistrationService service = RegistrationService.getAuthorizationService();
+    RegistrationService service = RegistrationService.getInstance();
     @FXML private Button backButton;
     @FXML private Button registrationButton;
     @FXML private Label errorLabel;

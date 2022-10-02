@@ -1,29 +1,19 @@
 package it.college.congratulations.service;
 
+import it.college.congratulations.FaithfulHelper;
 import it.college.congratulations.database.DatabaseHandler;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import java.io.File;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class RegistrationService {
-    private static final RegistrationService registrationService = new RegistrationService();
-    private RegistrationService(){
-        File surprisedImg = new File("src\\main\\resources\\it\\college\\congratulations\\image\\fh\\surprised.gif");
-        File upsetImg = new File("src\\main\\resources\\it\\college\\congratulations\\image\\fh\\upset.gif");
-        File happyImg = new File("src\\main\\resources\\it\\college\\congratulations\\image\\fh\\happy.gif");
-        fhSurprised = new Image(surprisedImg.toURI().toString());
-        fhUpset = new Image(upsetImg.toURI().toString());
-        fhHappy = new Image(happyImg.toURI().toString());
-    }
-    public static RegistrationService getAuthorizationService(){return registrationService;}
+    private static final RegistrationService REGISTRATION_SERVICE = new RegistrationService();
+    private RegistrationService(){}
+    public static RegistrationService getInstance(){return REGISTRATION_SERVICE;}
 
-    private final DatabaseHandler databaseHandler = DatabaseHandler.getDatabaseHandler();
-    private final Image fhSurprised;
-    private final Image fhUpset;
-    private final Image fhHappy;
+    private final DatabaseHandler databaseHandler = DatabaseHandler.getInstance();
+    private final FaithfulHelper FH = new FaithfulHelper();
 
     public boolean registration(String name, String lastname, String secondname, String birthdayDate,
                              String login, String password, Label errorLabel, ImageView fhImage){
@@ -31,7 +21,7 @@ public class RegistrationService {
         if (name.equals("") || lastname.equals("") || !birthdayDate.matches("\\d{2}\\.\\d{2}\\.\\d{4}") ||
             login.equals("") || password.equals("")){
             errorLabel.setText("Что-то неправильно введено");
-            fhImage.setImage(fhSurprised);
+            fhImage.setImage(FH.SURPRISED);
             return false;
         }
         String[] birthday = birthdayDate.split("\\.");
@@ -39,12 +29,12 @@ public class RegistrationService {
                 Integer.parseInt(birthday[1]) > 12 || Integer.parseInt(birthday[1]) < 1 ||
                 Integer.parseInt(birthday[2]) > calendar.get(Calendar.YEAR)){
             errorLabel.setText("Странная дата");
-            fhImage.setImage(fhSurprised);
+            fhImage.setImage(FH.SURPRISED);
             return false;
         }
         if (databaseHandler.findByLogin(login)){
             errorLabel.setText("Логин занят");
-            fhImage.setImage(fhUpset);
+            fhImage.setImage(FH.UPSET);
             return false;
         }
         int month = calendar.get(Calendar.MONTH) + 1;
@@ -57,11 +47,11 @@ public class RegistrationService {
                 name, lastname, secondname, birthdayDate, login, password, registrationDate);
         if (result){
             errorLabel.setText("Успешно!");
-            fhImage.setImage(fhHappy);
+            fhImage.setImage(FH.HAPPY);
         }
         else {
             errorLabel.setText("Что-то пошло не так");
-            fhImage.setImage(fhUpset);
+            fhImage.setImage(FH.UPSET);
         }
         return result;
     }

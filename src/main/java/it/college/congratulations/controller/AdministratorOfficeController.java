@@ -10,7 +10,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 
 public class AdministratorOfficeController extends Controller{
-    AdministratorOfficeService service = AdministratorOfficeService.getAdministratorOfficeService();
+    AdministratorOfficeService service = AdministratorOfficeService.getInstance();
     @FXML private TableColumn<User, String> birthdayDateTC;
     @FXML private ImageView calendarButton;
     @FXML private Button exitButton;

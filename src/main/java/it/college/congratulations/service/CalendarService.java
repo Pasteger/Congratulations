@@ -9,14 +9,13 @@ import java.util.List;
 import java.util.Optional;
 
 public class CalendarService {
-    private static final CalendarService calendarService = new CalendarService();
-    private CalendarService() {
-        updateCongratulations();
+    private static final CalendarService CALENDAR_SERVICE = new CalendarService();
+    private CalendarService() {}
+    public static CalendarService getInstance() {
+        return CALENDAR_SERVICE;
     }
-    public static CalendarService getCalendarService() {
-        return calendarService;
-    }
-    private final DatabaseHandler databaseHandler = DatabaseHandler.getDatabaseHandler();
+    private final DatabaseHandler databaseHandler = DatabaseHandler.getInstance();
+    private final UpdateHolidayWindowService updateHolidayWindowService = UpdateHolidayWindowService.getInstance();
     private final Calendar calendar = new GregorianCalendar();
     private final int todayYear = calendar.get(Calendar.YEAR);
     private final int todayMonth = calendar.get(Calendar.MONTH);
@@ -24,6 +23,7 @@ public class CalendarService {
     private int selectedMonth = todayMonth;
     private List<Congratulation> congratulations;
     public void getMount(List<Label> labelList, String command, Label yearLabel, Label monthLabel){
+        updateCongratulations();
         switch (command){
             case "CURRENT" -> setMount(labelList, yearLabel, monthLabel, todayYear, todayMonth);
             case "PREVIOUS_MONTH" -> setMount(labelList, yearLabel, monthLabel, selectedYear, --selectedMonth);
@@ -35,6 +35,16 @@ public class CalendarService {
                 setMount(labelList, yearLabel, monthLabel, Integer.parseInt(monthAndYear[1]), Integer.parseInt(monthAndYear[0])-1);
             }
         }
+    }
+
+    public void getUpdateHolidayWindow(String day){
+        String dayString = Integer.parseInt(day) > 9 ? day : "0" + day;
+        String monthString = (selectedMonth + 1) > 9 ? "" + (selectedMonth + 1) : "0" + (selectedMonth + 1);
+        String date =  dayString + "." + monthString;
+        updateHolidayWindowService.setDate(date);
+    }
+    public void updateCongratulations(){
+        congratulations = databaseHandler.getCongratulations();
     }
 
     private void setMount(List<Label> labelList, Label yearLabel, Label monthLabel, int year, int mount){
@@ -94,9 +104,5 @@ public class CalendarService {
             case Calendar.DECEMBER -> month = "Декабрь";
         }
         monthLabel.setText(month);
-    }
-
-    private void updateCongratulations(){
-        congratulations = databaseHandler.getCongratulations();
     }
 }

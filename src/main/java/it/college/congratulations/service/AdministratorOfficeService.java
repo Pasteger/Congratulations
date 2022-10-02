@@ -5,10 +5,10 @@ import it.college.congratulations.database.entity.User;
 import javafx.collections.ObservableList;
 
 public class AdministratorOfficeService {
-    DatabaseHandler databaseHandler = DatabaseHandler.getDatabaseHandler();
-    private static final AdministratorOfficeService administratorOfficeService = new AdministratorOfficeService();
+    private final DatabaseHandler databaseHandler = DatabaseHandler.getInstance();
+    private static final AdministratorOfficeService ADMINISTRATOR_OFFICE_SERVICE = new AdministratorOfficeService();
     private AdministratorOfficeService(){}
-    public static AdministratorOfficeService getAdministratorOfficeService(){return administratorOfficeService;}
+    public static AdministratorOfficeService getInstance(){return ADMINISTRATOR_OFFICE_SERVICE;}
 
     public ObservableList<User> getUsers(){
         return databaseHandler.getUsers();
