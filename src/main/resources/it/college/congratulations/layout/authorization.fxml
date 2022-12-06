@@ -8,58 +8,43 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0"
-            prefWidth="640.0" style="-fx-background-color: #535353;" xmlns="http://javafx.com/javafx/17"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="it.college.congratulations.controller.AuthorizationController">
-   <TextField fx:id="passwordTextField" alignment="CENTER" focusTraversable="false" layoutX="193.0" layoutY="240.0"
-              prefHeight="15.0" prefWidth="255.0" promptText="Пароль"
-              style="-fx-background-color: #8400b9; -fx-border-color: #8400b9;">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" style="-fx-background-color: #2A252D;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.college.congratulations.controller.AuthorizationController">
+   <TextField fx:id="passwordTextField" alignment="CENTER" focusTraversable="false" layoutX="193.0" layoutY="240.0" prefHeight="15.0" prefWidth="255.0" promptText="Пароль" style="-fx-background-color: #8400b9; -fx-border-color: #8400b9;">
       <font>
-         <Font size="18.0"/>
+         <Font size="18.0" />
       </font>
    </TextField>
-   <Label alignment="CENTER" layoutY="14.0" prefHeight="117.0" prefWidth="640.0"
-          text="ДОБРО ПОЖАЛОВАТЬ&#10;В ЛУЧШУЮ СИСТЕМУ НА СВЕТЕ" textAlignment="CENTER" textFill="#c700ff">
+   <Label alignment="CENTER" layoutY="14.0" prefHeight="117.0" prefWidth="640.0" text="ДОБРО ПОЖАЛОВАТЬ&#10;В ЛУЧШУЮ СИСТЕМУ НА СВЕТЕ" textAlignment="CENTER" textFill="#c700ff">
       <font>
-         <Font name="Segoe Print Bold" size="28.0"/>
+         <Font name="Segoe Print Bold" size="28.0" />
       </font>
    </Label>
-   <Label alignment="CENTER" layoutY="131.0" prefHeight="33.0" prefWidth="640.0" text="пожалуйста, авторизируйтесь"
-          textAlignment="CENTER" textFill="#b200ff">
+   <Label alignment="CENTER" layoutY="131.0" prefHeight="33.0" prefWidth="640.0" text="пожалуйста, авторизируйтесь" textAlignment="CENTER" textFill="#b200ff">
       <font>
-         <Font name="Segoe Print" size="25.0"/>
+         <Font name="Segoe Print" size="25.0" />
       </font>
    </Label>
-   <TextField fx:id="loginTextField" alignment="CENTER" focusTraversable="false" layoutX="193.0" layoutY="187.0"
-              prefHeight="15.0" prefWidth="255.0" promptText="Логин"
-              style="-fx-background-color: #8400b9; -fx-border-color: #8400b9;">
+   <TextField fx:id="loginTextField" alignment="CENTER" focusTraversable="false" layoutX="193.0" layoutY="187.0" prefHeight="15.0" prefWidth="255.0" promptText="Логин" style="-fx-background-color: #8400b9; -fx-border-color: #8400b9;">
       <font>
-         <Font size="18.0"/>
+         <Font size="18.0" />
       </font>
    </TextField>
-   <Label fx:id="errorLabel" alignment="CENTER" layoutY="294.0" prefHeight="33.0" prefWidth="640.0"
-          textAlignment="CENTER" textFill="#b200ff">
+   <Label fx:id="errorLabel" alignment="CENTER" layoutY="294.0" prefHeight="33.0" prefWidth="640.0" textAlignment="CENTER" textFill="#b200ff">
       <font>
-         <Font name="Segoe Print" size="25.0"/>
+         <Font name="Segoe Print" size="25.0" />
       </font>
    </Label>
-   <ImageView fx:id="fhImage" fitHeight="117.0" fitWidth="153.0" layoutX="262.0" layoutY="340.0" pickOnBounds="true"
-              preserveRatio="true">
-      <Image url="@../image/fh/normal.gif"/>
+   <ImageView fx:id="fhImage" fitHeight="117.0" fitWidth="153.0" layoutX="262.0" layoutY="340.0" pickOnBounds="true" preserveRatio="true">
+      <Image url="@../image/fh/normal.gif" />
    </ImageView>
-   <Button fx:id="registrationButton" layoutX="467.0" layoutY="408.0" mnemonicParsing="false" prefHeight="49.0"
-           prefWidth="159.0" style="-fx-background-color: #535353; -fx-border-color: #535353;" text="регистрация"
-           textFill="#b200ff">
+   <Button fx:id="registrationButton" layoutX="467.0" layoutY="408.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="159.0" style="-fx-background-color: #2A252D; -fx-border-color: #2A252D;" text="регистрация" textFill="#b200ff">
       <font>
-         <Font name="Segoe Print" size="19.0"/>
+         <Font name="Segoe Print" size="19.0" />
       </font>
    </Button>
-   <Button fx:id="exitButton" alignment="BOTTOM_LEFT" layoutX="14.0" layoutY="417.0" mnemonicParsing="false"
-           prefHeight="49.0" prefWidth="98.0" style="-fx-background-color: #535353; -fx-border-color: #535353;"
-           text="выйти" textFill="#b200ff">
+   <Button fx:id="exitButton" alignment="BOTTOM_LEFT" layoutX="14.0" layoutY="417.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="98.0" style="-fx-background-color: #2A252D; -fx-border-color: #2A252D;" text="выйти" textFill="#b200ff">
       <font>
-         <Font name="Segoe Print" size="19.0"/>
+         <Font name="Segoe Print" size="19.0" />
       </font>
    </Button>
 </AnchorPane>
